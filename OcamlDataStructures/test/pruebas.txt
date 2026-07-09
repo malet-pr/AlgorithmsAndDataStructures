@@ -1,0 +1,62 @@
+
+
+(***********************************************************************)
+(*
+     10  
+    /  \  
+  5    20
+         \
+          15
+*)
+let tree =
+  BNode (10,
+    BNode (5, Empty, Empty),
+    BNode (20, Empty, BNode (15, Empty, Empty))
+  )
+
+let wo_tree =
+  BNode ({wo_number="AB123"; wo_class=Event},
+    BNode ({wo_number="AB22L"; wo_class=Invalid "bad data"}, Empty, Empty),
+    BNode ({wo_number="AB22R"; wo_class=Event}, Empty, BNode ({wo_number="AB321"; wo_class=Network}, Empty, Empty))
+  )  
+
+(*
+       10  
+      /  \  
+     5    20
+    / \   / \
+   7   9 12  15
+
+preorder: 10,5,7,9,20,12,15
+inorder: 7,5,9,10,12,20,15
+postorder: 7,9,5,12,15,20,10
+*)
+
+let tree2 =
+  BNode (10,
+    BNode (5,BNode(7,Empty,Empty),BNode(9,Empty,Empty)),
+    BNode (20, BNode(12,Empty,Empty), BNode (15, Empty, Empty))
+  )
+
+
+let run() = 
+  print_endline("Number of nodes = " ^ string_of_int (count_nodes tree));
+  print_endline("Number of leaves = " ^ string_of_int (count_leaves tree));
+  print_endline("Depth = " ^ string_of_int (calculate_depth tree));
+  print_endline("Has 55 = " ^ string_of_bool (find_value 55 tree));
+  print_endline("Has 5 = " ^ string_of_bool (find_value 5 tree)); 
+  print_endline("Has Event = " ^ string_of_bool (find_by (fun wo -> wo.wo_class = Event) wo_tree));
+  print_endline("Count Event = " ^ string_of_int (count_by (fun wo -> wo.wo_class = Event) wo_tree));
+  print_endline("Count Network = " ^ string_of_int (count_by (fun wo -> wo.wo_class = Network) wo_tree));
+  print_endline("Count NonExistent woNumber = " ^ string_of_int (count_by (fun wo -> wo.wo_number = "XXX") wo_tree));
+  print_endline("Count Invalid \"bad data\" = " ^ string_of_int (count_by (fun wo -> wo.wo_class = Invalid "bad data") wo_tree));
+  print_endline("Count Invalid \"other thing\" = " ^ string_of_int (count_by (fun wo -> wo.wo_class = Invalid "other thing") wo_tree)); 
+  print_endline("Preorder tree: [" ^ String.concat ("; ") (ints_to_strings (preorder tree)) ^ "]");
+  print_endline("Preorder tree2: [" ^ String.concat ("; ") (ints_to_strings (preorder tree2)) ^ "]");
+  print_endline("Inorder tree: [" ^ String.concat ("; ") (ints_to_strings (inorder tree)) ^ "]");
+  print_endline("Inorder tree2: [" ^ String.concat ("; ") (ints_to_strings (inorder tree2)) ^ "]");
+  print_endline("Postorder tree: [" ^ String.concat ("; ") (ints_to_strings (postorder tree)) ^ "]");
+  print_endline("Postorder tree2: [" ^ String.concat ("; ") (ints_to_strings (postorder tree2)) ^ "]");
+  print_endline("Preorder tree2: [" ^ String.concat ("; ") (ints_to_strings (order tree2 Pre [])) ^ "]");
+  print_endline("Inorder tree2: [" ^ String.concat ("; ") (ints_to_strings (order tree2 In [])) ^ "]");
+  print_endline("Postorder tree2: [" ^ String.concat ("; ") (ints_to_strings (order tree2 Post [])) ^ "]");

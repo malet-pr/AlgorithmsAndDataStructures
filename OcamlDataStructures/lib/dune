@@ -1,3 +1,3 @@
-(include_subdirs unqualified)
+(include_subdirs qualified)
 (library
  (name dataStructures))

@@ -1,4 +1,3 @@
 open DataStructures
 
-let () = 
-  Binary_tree.run();
+let () = print_newline();
