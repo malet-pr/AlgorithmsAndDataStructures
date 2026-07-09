@@ -38,6 +38,23 @@ let count_leaves_cases =
     ("empty tree", 0, Empty);
   ]
 
+let calculate_depth_cases = 
+  [
+    ("small tree", 3, tree1);
+    ("larger tree", 3, tree2);
+    ("empty tree", 0, Empty);
+  ]  
+
+let find_value_cases =
+  [
+    ("small tree has 5", 5,true, tree1);
+    ("small tree does not have 55", 55,false, tree1);
+    ("larger tree has 9", 9,true, tree2);
+    ("larger tree does not have 60", 60,false, tree2);
+    ("empty tree does not have any", 5,false, Empty);
+
+  ]
+
 (***********************************************)
 
 let make_count_test t_case f (name, expected, tree) = 
@@ -48,10 +65,20 @@ let make_count_test t_case f (name, expected, tree) =
       (f tree)
   )  
 
+let make_bool_test t_case f (name, param, expected, tree) = 
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check bool)
+      t_case
+      expected
+      (f param tree)
+  )    
+
 let () =
   Alcotest.run "Binary tree tests"
     [
       ("count_nodes", List.map (make_count_test "count_nodes" count_nodes) count_nodes_cases);
       ("count_leaves", List.map (make_count_test "count_leaves" count_leaves) count_leaves_cases);
+      ("calculate_depth", List.map (make_count_test "calculate_depth" calculate_depth) calculate_depth_cases);
+      ("find_value", List.map (make_bool_test "find_value" find_value ) find_value_cases);
     ]
 
