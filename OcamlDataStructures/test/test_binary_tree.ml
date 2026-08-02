@@ -1,107 +1,11 @@
 open DataStructures
 open Test_models
+open Test_data
+open Test_sets
 
 module BT = DataStructures.Trees.Binary_tree
 module TM = DataStructures.Trees.Models
 
-let leaf v = TM.BNode (v, TM.Empty, TM.Empty)
-
-let node v left right = TM.BNode (v, left, right)
-
-let tree1 =
-  node 10
-    (leaf 5)
-    (node 20
-       TM.Empty
-       (leaf 15))
-
-let tree2 =
-  node 10
-    (node 5
-       (leaf 7)
-       (leaf 9))
-    (node 20
-       (leaf 12)
-       (leaf 15))
-
-let expected_double =
-  node 20
-    (leaf 10)
-    (node 40 TM.Empty (leaf 30))
-
-let expected_string =
-  node "10"
-    (leaf "5")
-    (node "20" TM.Empty (leaf "15"))
-
-(**************************************)
-let count_nodes_cases =
-  [
-    ("small tree", 4, tree1);
-    ("larger tree", 7, tree2);
-    ("empty tree", 0, TM.Empty);
-  ]
-
-let count_leaves_cases =
-  [
-    ("small tree", 2, tree1);
-    ("larger tree", 4, tree2);
-    ("empty tree", 0, TM.Empty);
-  ]
-
-let calculate_depth_cases = 
-  [
-    ("small tree", 3, tree1);
-    ("larger tree", 3, tree2);
-    ("empty tree", 0, TM.Empty);
-  ]  
-
-let find_value_cases =
-  [
-    ("small tree has 5", 5,true, tree1);
-    ("small tree does not have 55", 55,false, tree1);
-    ("larger tree has 9", 9,true, tree2);
-    ("larger tree does not have 60", 60,false, tree2);
-    ("empty tree does not have any", 5,false, TM.Empty);
-  ]
-
-let preorder_test_cases = 
-  [
-    ("small tree preorder",[10;5;20;15],tree1);
-    ("large tree preorder",[10;5;7;9;20;12;15],tree2);
-  ]
-
-  let inorder_test_cases =
-  [
-    ("small tree inorder", [5; 10; 20; 15], tree1);
-    ("large tree inorder", [7; 5; 9; 10; 12; 20; 15], tree2);
-  ]
-
-let postorder_test_cases =
-  [
-    ("small tree postorder", [5; 15; 20; 10], tree1);
-    ("large tree postorder", [7; 9; 5; 12; 15; 20; 10], tree2);
-  ]
-
-let order_test_cases =
-  [
-    ("preorder", TM.Pre, [], [10; 5; 20; 15], tree1);
-    ("inorder", TM.In, [], [5; 10; 20; 15], tree1);
-    ("postorder", TM.Post, [], [5; 15; 20; 10], tree1);
-  ]  
-
-let map_test_cases_int =
-  [
-    ("map double", (fun x -> x * 2),expected_double,tree1);
-  ] 
-
-let map_test_cases_string =
-  [
-    ("map to string",(fun x -> string_of_int x),expected_string,tree1);
-  ]   
-
-
-(***********************************************)
 
 let make_count_test t_case f (name, expected, tree) = 
   Alcotest.test_case name `Quick (fun () ->
@@ -153,6 +57,22 @@ let make_string_return t_case f (name, g, expected,tree) =
     )
   )
 
+let make_predicate_bool_test t_case f (name, predicate, expected, tree) =
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check bool)
+      t_case
+      expected
+      (f predicate tree)
+  )
+
+let make_predicate_int_test t_case f (name, predicate, expected, tree) =
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check int)
+      t_case
+      expected
+      (f predicate tree)
+  )
+
 let () =
   Alcotest.run "Binary tree tests"
     [
@@ -166,13 +86,8 @@ let () =
       ("order", List.map (make_int_list_test_with_param "order" BT.order) order_test_cases);
       ("map_to_int", List.map (make_int_return "map_to_int" BT.map) map_test_cases_int);
       ("map_to_string", List.map (make_string_return "map_to_string" BT.map) map_test_cases_string);
+      ("find_by", List.map (make_predicate_bool_test "find_by" BT.find_by) find_by_cases);
+      ("count_by", List.map (make_predicate_int_test "count_by" BT.count_by) count_by_cases);
     ]
 
-
-
-
-(* Alcotest.(check (list string))
-  "mapped tree"
-  (preorder expected)
-  (preorder (map (fun x -> string_of_int x) tree1)) *)
 
