@@ -1,14 +1,12 @@
 open Models
 open Utils
 
-(*** 
-  First exercises:
-    Count all nodes.
-    Count leaves.
-    Calculate depth.
-    Search for a value.
-    Count occurencies. (extra)
-***)
+let leaf value =
+  BNode (value, Empty, Empty)
+
+let node value left right =
+  BNode (value, left, right)
+
 let rec count_nodes tree =  
   match tree with  
   | Empty -> 0  
