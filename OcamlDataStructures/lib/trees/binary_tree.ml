@@ -1,5 +1,5 @@
 open Models
-open Utils
+
 
 let leaf value =
   BNode (value, Empty, Empty)
