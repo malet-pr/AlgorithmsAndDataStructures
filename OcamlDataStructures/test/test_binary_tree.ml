@@ -42,19 +42,39 @@ let make_int_list_test_with_param t_case f (name,param,acc,expected,tree) =
 let make_int_return t_case f (name, g, expected,tree) =
   Alcotest.test_case name `Quick (fun () -> 
     Alcotest.(check (list int))
-      t_case
+      (t_case ^ " preorder")
       (BT.preorder expected)
       (BT.preorder( f g tree)
-    )
+    );
+    Alcotest.(check (list int))
+      (t_case ^ " inorder")
+      (BT.inorder expected)
+      (BT.inorder( f g tree)
+    );
+    Alcotest.(check (list int))
+      (t_case ^ " postorder")
+      (BT.postorder expected)
+      (BT.postorder( f g tree)
+    )  
   )
 
 let make_string_return t_case f (name, g, expected,tree) =
   Alcotest.test_case name `Quick (fun () -> 
     Alcotest.(check (list string))
-      t_case
+      (t_case ^ " preorder")
       (BT.preorder expected)
       (BT.preorder( f g tree)
-    )
+    );
+    Alcotest.(check (list string))
+      (t_case ^ " inorder")
+      (BT.inorder expected)
+      (BT.inorder( f g tree)
+    );
+    Alcotest.(check (list string))
+      (t_case ^ " postorder")
+      (BT.postorder expected)
+      (BT.postorder( f g tree)
+    )  
   )
 
 let make_predicate_bool_test t_case f (name, predicate, expected, tree) =
@@ -89,5 +109,4 @@ let () =
       ("find_by", List.map (make_predicate_bool_test "find_by" BT.find_by) find_by_cases);
       ("count_by", List.map (make_predicate_int_test "count_by" BT.count_by) count_by_cases);
     ]
-
 
