@@ -24,6 +24,15 @@ let tree2 =
        (leaf 12)
        (leaf 15))
 
+let expected_double =
+  node 20
+    (leaf 10)
+    (node 40 TM.Empty (leaf 30))
+
+let expected_string =
+  node "10"
+    (leaf "5")
+    (node "20" TM.Empty (leaf "15"))
 
 (**************************************)
 let count_nodes_cases =
@@ -81,6 +90,17 @@ let order_test_cases =
     ("postorder", TM.Post, [], [5; 15; 20; 10], tree1);
   ]  
 
+let map_test_cases_int =
+  [
+    ("map double", (fun x -> x * 2),expected_double,tree1);
+  ] 
+
+let map_test_cases_string =
+  [
+    ("map to string",(fun x -> string_of_int x),expected_string,tree1);
+  ]   
+
+
 (***********************************************)
 
 let make_count_test t_case f (name, expected, tree) = 
@@ -115,6 +135,23 @@ let make_int_list_test_with_param t_case f (name,param,acc,expected,tree) =
     (f tree param acc)
   )  
 
+let make_int_return t_case f (name, g, expected,tree) =
+  Alcotest.test_case name `Quick (fun () -> 
+    Alcotest.(check (list int))
+      t_case
+      (BT.preorder expected)
+      (BT.preorder( f g tree)
+    )
+  )
+
+let make_string_return t_case f (name, g, expected,tree) =
+  Alcotest.test_case name `Quick (fun () -> 
+    Alcotest.(check (list string))
+      t_case
+      (BT.preorder expected)
+      (BT.preorder( f g tree)
+    )
+  )
 
 let () =
   Alcotest.run "Binary tree tests"
@@ -127,5 +164,15 @@ let () =
       ("inorder", List.map (make_int_list_test "inorder" BT.inorder) inorder_test_cases);
       ("postorder", List.map (make_int_list_test "postorder" BT.postorder) postorder_test_cases);
       ("order", List.map (make_int_list_test_with_param "order" BT.order) order_test_cases);
+      ("map_to_int", List.map (make_int_return "map_to_int" BT.map) map_test_cases_int);
+      ("map_to_string", List.map (make_string_return "map_to_string" BT.map) map_test_cases_string);
     ]
+
+
+
+
+(* Alcotest.(check (list string))
+  "mapped tree"
+  (preorder expected)
+  (preorder (map (fun x -> string_of_int x) tree1)) *)
 

@@ -16,3 +16,5 @@ val order : 'a b_tree -> order_variant -> 'a list -> 'a list
 val find_value : 'a -> 'a b_tree -> bool
 val find_by : ('a -> bool) -> 'a b_tree -> bool
 val count_by : ('a -> bool) -> 'a b_tree -> int
+
+val map : ('a -> 'b) -> 'a b_tree -> 'b b_tree

@@ -72,4 +72,9 @@ let rec order (tree: 'a b_tree) (o: order_variant) (acc: 'a list) :'a list =
     | Post -> order left Post (order right Post (v :: acc))
 
 
+let rec map f tree =
+  match tree with
+  | Empty -> Empty
+  | BNode (v, left, right) -> BNode(f v, map f left, map f right)
+
 
