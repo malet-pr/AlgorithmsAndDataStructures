@@ -1,10 +1,16 @@
 open DataStructures
+open Test_models
 
 module TM = DataStructures.Trees.Models
 
 let leaf v = TM.BNode (v, TM.Empty, TM.Empty)
 
 let node v left right = TM.BNode (v, left, right)
+
+let wo_tree =
+  node {wo_number="AB22R"; wo_class=Event}
+    TM.Empty
+    (leaf {wo_number="AB321"; wo_class=Network})
 
 let tree1 =
   node 10
@@ -33,4 +39,3 @@ let expected_string =
     (node "20" TM.Empty (leaf "15"))
 
 
-    

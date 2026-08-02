@@ -72,8 +72,6 @@ let map_test_cases_string =
 
 (************************************************************************************)  
 
-let wo_tree = TM.BNode ({wo_number="AB22R"; wo_class=Event}, TM.Empty, TM.BNode ({wo_number="AB321"; wo_class=Network}, TM.Empty, TM.Empty))
- 
 
 let find_by_cases =
   [
