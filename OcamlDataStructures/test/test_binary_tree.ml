@@ -108,5 +108,6 @@ let () =
       ("map_to_string", List.map (make_string_return "map_to_string" BT.map) map_test_cases_string);
       ("find_by", List.map (make_predicate_bool_test "find_by" BT.find_by) find_by_cases);
       ("count_by", List.map (make_predicate_int_test "count_by" BT.count_by) count_by_cases);
+      ("count_even", List.map (make_count_test "count_even" BT.count_even) count_even_cases);
     ]
 

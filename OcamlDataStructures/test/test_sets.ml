@@ -69,6 +69,18 @@ let map_test_cases_string =
     ("map to string",(fun x -> string_of_int x),expected_string,tree1);
   ]   
 
+let triple_value_test_cases =
+  [
+    ("triple value", expected_triple,tree1);
+  ]
+
+let count_even_cases =
+  [
+    ("small tree", 2, tree1);
+    ("larger tree", 3, tree2);
+    ("empty tree", 0, TM.Empty);
+  ]
+
 
 (************************************************************************************)  
 
