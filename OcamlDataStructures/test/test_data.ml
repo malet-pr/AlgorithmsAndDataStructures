@@ -47,9 +47,17 @@ let expected_string =
     (leaf "5")
     (node "20" TM.Empty (leaf "15"))
 
-let expected_triple =
+let expected_triple1 =
   node 30
     (leaf 15)
     (node 60 TM.Empty (leaf 45))
 
 
+let expected_triple2 =
+  node 30
+    (node 15
+       (leaf 21)
+       (leaf 27))
+    (node 60
+       (leaf 36)
+       (leaf 45))

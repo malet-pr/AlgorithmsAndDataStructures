@@ -66,6 +66,25 @@ let make_int_return t_case f (name, g, expected,tree) =
     )  
   )
 
+let make_int_return_no_func t_case f (name, expected,tree) =
+  Alcotest.test_case name `Quick (fun () -> 
+    Alcotest.(check (list int))
+      (t_case ^ " preorder")
+      (BT.preorder expected)
+      (BT.preorder( f tree)
+    );
+    Alcotest.(check (list int))
+      (t_case ^ " inorder")
+      (BT.inorder expected)
+      (BT.inorder( f tree)
+    );
+    Alcotest.(check (list int))
+      (t_case ^ " postorder")
+      (BT.postorder expected)
+      (BT.postorder( f tree)
+    )  
+  )
+
 let make_string_return t_case f (name, g, expected,tree) =
   Alcotest.test_case name `Quick (fun () -> 
     Alcotest.(check (list string))
@@ -123,5 +142,6 @@ let () =
       ("count_even", List.map (make_count_test "count_even" BT.count_even) count_even_cases);
       ("contains_value_greater_than", List.map (make_bool_test "contains_value_greater_than" BT.contains_value_greater_than ) contains_value_greater_than_cases);
       ("collect_positive", List.map (make_int_list_test "collect_positive" BT.collect_positive) collect_positive_cases);
+      ("triple_values", List.map (make_int_return_no_func "triple_values" BT.triple_values) triple_values_cases);
     ]
 

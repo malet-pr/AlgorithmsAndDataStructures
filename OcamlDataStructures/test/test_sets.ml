@@ -69,11 +69,6 @@ let map_test_cases_string =
     ("map to string",(fun x -> string_of_int x),expected_string,tree1);
   ]   
 
-let triple_value_test_cases =
-  [
-    ("triple value", expected_triple,tree1);
-  ]
-
 let count_even_cases =
   [
     ("small tree", 2, tree1);
@@ -117,6 +112,12 @@ let contains_negative_cases =
   [
     ("tree1 positives",[10;5;20;15],tree1);
     ("tree2 positives",[10;5;9;20;15],tree3);
+  ]
+
+  let triple_values_cases =
+  [
+    ("triple value small tree", expected_triple1,tree1);
+    ("triple value larger tree", expected_triple2,tree2);
   ]
 
 
