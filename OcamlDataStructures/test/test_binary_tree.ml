@@ -23,6 +23,14 @@ let make_bool_test t_case f (name, param, expected, tree) =
       (f param tree)
   )    
 
+  let make_bool_no_condition_test t_case f (name, expected, tree) = 
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check bool)
+      t_case
+      expected
+      (f tree)
+  )  
+
 let make_int_list_test t_case f (name,expected,tree) =
   Alcotest.test_case name `Quick (fun () -> 
     Alcotest.(check (list int))
@@ -108,6 +116,12 @@ let () =
       ("map_to_string", List.map (make_string_return "map_to_string" BT.map) map_test_cases_string);
       ("find_by", List.map (make_predicate_bool_test "find_by" BT.find_by) find_by_cases);
       ("count_by", List.map (make_predicate_int_test "count_by" BT.count_by) count_by_cases);
+      ("sum_values", List.map (make_count_test "sum_values" BT.sum_values) sum_values_cases);
+      ("product_values", List.map (make_count_test "product_values" BT.product_values) product_values_cases);
+      ("all_positive", List.map (make_bool_no_condition_test "all_positive" BT.all_positive ) all_positive_cases);
+      ("contains_negative", List.map (make_bool_no_condition_test "contains_negative" BT.contains_negative ) contains_negative_cases);
       ("count_even", List.map (make_count_test "count_even" BT.count_even) count_even_cases);
+      ("contains_value_greater_than", List.map (make_bool_test "contains_value_greater_than" BT.contains_value_greater_than ) contains_value_greater_than_cases);
+
     ]
 

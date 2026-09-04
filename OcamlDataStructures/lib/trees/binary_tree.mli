@@ -19,6 +19,11 @@ val count_by : ('a -> bool) -> 'a b_tree -> int
 
 val map : ('a -> 'b) -> 'a b_tree -> 'b b_tree
 
+val sum_values : int b_tree -> int
+val product_values : int b_tree -> int
+val all_positive : int b_tree -> bool
+val contains_negative : int b_tree -> bool
+
 val count_even : int b_tree -> int
 val contains_value_greater_than : 'a -> 'a b_tree -> bool
 val collect_positive : int b_tree -> int list

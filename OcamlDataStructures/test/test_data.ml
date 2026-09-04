@@ -28,6 +28,15 @@ let tree2 =
        (leaf 12)
        (leaf 15))
 
+let tree3 =
+  node 10
+    (node 5
+       (leaf (-7))
+       (leaf 9))
+    (node 20
+       (leaf (-12))
+       (leaf 15))
+
 let expected_double =
   node 20
     (leaf 10)

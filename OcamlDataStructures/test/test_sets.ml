@@ -81,6 +81,37 @@ let count_even_cases =
     ("empty tree", 0, TM.Empty);
   ]
 
+let sum_values_cases =
+  [
+    ("small tree", 50, tree1);
+    ("larger tree", 78, tree2);
+    ("empty tree", 0, TM.Empty);
+  ]
+  let product_values_cases =
+  [
+    ("small tree", 15000, tree1);
+    ("larger tree", 11340000, tree2);
+  ]
+
+let all_positive_cases =
+  [
+    ("tree1 has all positives", true, tree1);
+    ("tree3 has not all positives", false, tree3);
+  ]
+
+let contains_negative_cases =
+  [
+    ("tree1 has no negatives", false, tree1);
+    ("tree3 has negatives", true, tree3);
+  ]
+
+  let contains_value_greater_than_cases =
+  [
+    ("small tree has value larger than 5", 5,true, tree1);
+    ("small tree does not have value larger than 55", 55,false, tree1);
+    ("larger tree has value larger than 9", 9,true, tree2);
+    ("larger tree does not have value larger than 60", 60,false, tree2);
+  ]
 
 (************************************************************************************)  
 
