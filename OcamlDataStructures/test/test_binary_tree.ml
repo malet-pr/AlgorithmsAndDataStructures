@@ -122,6 +122,6 @@ let () =
       ("contains_negative", List.map (make_bool_no_condition_test "contains_negative" BT.contains_negative ) contains_negative_cases);
       ("count_even", List.map (make_count_test "count_even" BT.count_even) count_even_cases);
       ("contains_value_greater_than", List.map (make_bool_test "contains_value_greater_than" BT.contains_value_greater_than ) contains_value_greater_than_cases);
-
+      ("collect_positive", List.map (make_int_list_test "collect_positive" BT.collect_positive) collect_positive_cases);
     ]
 

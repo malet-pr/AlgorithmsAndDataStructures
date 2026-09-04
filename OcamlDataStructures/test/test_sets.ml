@@ -113,6 +113,13 @@ let contains_negative_cases =
     ("larger tree does not have value larger than 60", 60,false, tree2);
   ]
 
+  let collect_positive_cases = 
+  [
+    ("tree1 positives",[10;5;20;15],tree1);
+    ("tree2 positives",[10;5;9;20;15],tree3);
+  ]
+
+
 (************************************************************************************)  
 
 
