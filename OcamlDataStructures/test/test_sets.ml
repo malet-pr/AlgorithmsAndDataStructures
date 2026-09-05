@@ -100,7 +100,7 @@ let contains_negative_cases =
     ("tree3 has negatives", true, tree3);
   ]
 
-  let contains_value_greater_than_cases =
+let contains_value_greater_than_cases =
   [
     ("small tree has value larger than 5", 5,true, tree1);
     ("small tree does not have value larger than 55", 55,false, tree1);
@@ -108,16 +108,35 @@ let contains_negative_cases =
     ("larger tree does not have value larger than 60", 60,false, tree2);
   ]
 
-  let collect_positive_cases = 
+let collect_positive_cases = 
   [
     ("tree1 positives",[10;5;20;15],tree1);
-    ("tree2 positives",[10;5;9;20;15],tree3);
+    ("tree3 positives",[10;5;9;20;15],tree3);
   ]
 
-  let triple_values_cases =
+let triple_values_cases =
   [
     ("triple value small tree", expected_triple1,tree1);
     ("triple value larger tree", expected_triple2,tree2);
+  ]
+
+let fold_test_cases_int =
+  [
+    ("count_nodes_fold",(fun _ left right -> 1 + left + right), 0 ,4,tree1);
+  ]
+
+let fold_test_cases_bool =
+  [
+    ("find_by_fold v > 10",(fun v left right -> (v > 10 || left || right)), false , true,tree1);
+    ("find_by_fold v > 60",(fun v left right -> (v > 60 || left || right)), false , false,tree1);
+  ]
+
+let fold_test_cases_list =
+  [
+    ("collect positives tree1",(fun v left right -> let list = left @ right in
+                                                        if v > 0 then v :: list else list), [],[10;5;20;15],tree1);
+    ("collect positives tree3",(fun v left right -> let list = left @ right in
+                                                        if v > 0 then v :: list else list), [],[10;5;9;20;15],tree3);
   ]
 
 

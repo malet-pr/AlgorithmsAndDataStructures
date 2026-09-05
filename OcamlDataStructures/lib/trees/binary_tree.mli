@@ -19,13 +19,9 @@ val count_by : ('a -> bool) -> 'a b_tree -> int
 
 val map : ('a -> 'b) -> 'a b_tree -> 'b b_tree
 
-val sum_values : int b_tree -> int
-val product_values : int b_tree -> int
-val all_positive : int b_tree -> bool
-val contains_negative : int b_tree -> bool
+val fold_tree : ('a -> 'b -> 'b -> 'b) -> 'b -> 'a b_tree -> 'b
 
-val count_even : int b_tree -> int
-val contains_value_greater_than : 'a -> 'a b_tree -> bool
-val collect_positive : int b_tree -> int list
-val triple_values : int b_tree -> int b_tree
+val count_nodes_fold : 'a b_tree -> int
+val count_by_fold : ('a -> bool) -> 'a b_tree -> int
+val find_by_fold : ('a -> bool) -> 'a b_tree -> bool
 

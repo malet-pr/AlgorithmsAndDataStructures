@@ -126,4 +126,17 @@ let rec triple_values tree =
   | Empty -> Empty
   | BNode (v, left, right) -> BNode (3 * v, triple_values left, triple_values right)
 
+let rec fold_tree acc init tree =
+  match tree with
+  | Empty -> init
+  | BNode (v, left, right) -> acc v (fold_tree acc init left ) (fold_tree acc init right)
   
+let count_nodes_fold tree =
+  fold_tree (fun v left right -> 1 + left + right) 0 tree
+
+let count_by_fold pr tree =
+  fold_tree (fun v left right -> (if pr v  then 1 else 0) + left + right) 0 tree
+
+let find_by_fold pr tree =
+  fold_tree (fun v left right -> (pr v || left || right)) false tree
+

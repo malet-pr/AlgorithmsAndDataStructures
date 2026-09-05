@@ -5,6 +5,7 @@ open Test_sets
 
 module BT = DataStructures.Trees.Binary_tree
 module TM = DataStructures.Trees.Models
+module IBT = DataStructures.Trees.Int_binary_tree
 
 
 let make_count_test t_case f (name, expected, tree) = 
@@ -120,6 +121,39 @@ let make_predicate_int_test t_case f (name, predicate, expected, tree) =
       (f predicate tree)
   )
 
+let make_fold_int t_case f (name, acc, init, expected, tree) =
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check int)
+    t_case
+    expected
+    (f acc init tree)
+  )
+
+let make_fold_bool t_case f (name, acc, init, expected, tree) =
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check bool)
+    t_case
+    expected
+    (f acc init tree)
+  )
+
+let make_fold_list_int t_case f (name, acc, init, expected, tree) =
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check (list int))
+    t_case
+    expected
+    (f acc init tree)
+  )
+
+let make_fold_list_string t_case f (name, acc, init, expected, tree) =
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check (list string))
+    t_case
+    expected
+    (f acc init tree)
+  )  
+
+
 let () =
   Alcotest.run "Binary tree tests"
     [
@@ -135,13 +169,19 @@ let () =
       ("map_to_string", List.map (make_string_return "map_to_string" BT.map) map_test_cases_string);
       ("find_by", List.map (make_predicate_bool_test "find_by" BT.find_by) find_by_cases);
       ("count_by", List.map (make_predicate_int_test "count_by" BT.count_by) count_by_cases);
-      ("sum_values", List.map (make_count_test "sum_values" BT.sum_values) sum_values_cases);
-      ("product_values", List.map (make_count_test "product_values" BT.product_values) product_values_cases);
-      ("all_positive", List.map (make_bool_no_condition_test "all_positive" BT.all_positive ) all_positive_cases);
-      ("contains_negative", List.map (make_bool_no_condition_test "contains_negative" BT.contains_negative ) contains_negative_cases);
-      ("count_even", List.map (make_count_test "count_even" BT.count_even) count_even_cases);
-      ("contains_value_greater_than", List.map (make_bool_test "contains_value_greater_than" BT.contains_value_greater_than ) contains_value_greater_than_cases);
-      ("collect_positive", List.map (make_int_list_test "collect_positive" BT.collect_positive) collect_positive_cases);
-      ("triple_values", List.map (make_int_return_no_func "triple_values" BT.triple_values) triple_values_cases);
-    ]
+      ("sum_values", List.map (make_count_test "sum_values" IBT.sum_values) sum_values_cases);
+      ("product_values", List.map (make_count_test "product_values" IBT.product_values) product_values_cases);
+      ("all_positive", List.map (make_bool_no_condition_test "all_positive" IBT.all_positive ) all_positive_cases);
+      ("contains_negative", List.map (make_bool_no_condition_test "contains_negative" IBT.contains_negative ) contains_negative_cases);
+      ("count_even", List.map (make_count_test "count_even" IBT.count_even) count_even_cases);
+      ("contains_value_greater_than", List.map (make_bool_test "contains_value_greater_than" IBT.contains_value_greater_than ) contains_value_greater_than_cases);
+      ("collect_positive", List.map (make_int_list_test "collect_positive" IBT.collect_positive) collect_positive_cases);
+      ("triple_values", List.map (make_int_return_no_func "triple_values" IBT.triple_values) triple_values_cases);
+      ("fold_count", List.map(make_fold_int "fold_count_nodes" BT.fold_tree) fold_test_cases_int);
+      ("fold_bool", List.map(make_fold_bool "find_by_fold" BT.fold_tree) fold_test_cases_bool);
+      ("fold_list", List.map(make_fold_list_int "collect_positive_fold" BT.fold_tree) fold_test_cases_list);
+    ] 
+
+
+
 
