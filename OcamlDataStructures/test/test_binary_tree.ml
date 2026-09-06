@@ -86,6 +86,25 @@ let make_int_return_no_func t_case f (name, expected,tree) =
     )  
   )
 
+let make_option_int_return t_case f (name, n, expected,tree) =
+  Alcotest.test_case name `Quick (fun () -> 
+    Alcotest.(check (list (option int)))
+      (t_case ^ " preorder")
+      (BT.preorder expected)
+      (BT.preorder( f n tree)
+    );
+    Alcotest.(check (list (option int)))
+      (t_case ^ " inorder")
+      (BT.inorder expected)
+      (BT.inorder( f n tree)
+    );
+    Alcotest.(check (list (option int)))
+      (t_case ^ " postorder")
+      (BT.postorder expected)
+      (BT.postorder( f n tree)
+    )  
+  )
+
 let make_string_return t_case f (name, g, expected,tree) =
   Alcotest.test_case name `Quick (fun () -> 
     Alcotest.(check (list string))
@@ -180,6 +199,9 @@ let () =
       ("fold_count", List.map(make_fold_int "fold_count_nodes" BT.fold_tree) fold_test_cases_int);
       ("fold_bool", List.map(make_fold_bool "find_by_fold" BT.fold_tree) fold_test_cases_bool);
       ("fold_list", List.map(make_fold_list_int "collect_positive_fold" BT.fold_tree) fold_test_cases_list);
+      ("filter_prune", List.map(make_int_return "filter_prune" BT.filter_prune ) filter_prune_cases); 
+      ("filter_option", List.map(make_option_int_return "filter_prune" BT.filter_option ) filter_option_cases); 
+      ("mirror", List.map(make_int_return_no_func "mirror" BT.mirror) mirror_test_cases);
     ] 
 
 

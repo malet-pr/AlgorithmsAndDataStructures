@@ -138,6 +138,30 @@ let fold_test_cases_list =
     ("collect positives tree3",(fun v left right -> let list = left @ right in
                                                         if v > 0 then v :: list else list), [],[10;5;9;20;15],tree3);
   ]
+ 
+let aux n tree =
+  match tree with
+  | TM.Empty -> TM.Empty
+  | BNode(v,left,right) -> if v > n then BNode(v, left,right) else TM.Empty
+
+let filter_prune_cases =
+  [
+    ("filter tree2 by v > 5", ( fun x -> x > 5 ), expected_filter_prune1, tree2);
+    ("filter tree2 by v² < 28", ( fun x -> x * x < 28 ), TM.Empty, tree2);
+    ("filter tree3 by v > 0", ( fun x -> x > 0 ), expected_filter_prune2, tree3);
+  ]
+
+let filter_option_cases =
+  [
+    ("filter tree2 by v > 5", ( fun x -> x > 5 ), expected_filter_option1, tree2);
+    ("filter tree3 by v > 0", ( fun x -> x > 0 ), expected_filter_option2, tree3);    
+  ]
+
+let mirror_test_cases =
+  [
+    ("mirror tree2", mirror_tree1, tree2);
+    ("mirror mirror_tree1", tree2, mirror_tree1);
+  ]
 
 
 (************************************************************************************)  

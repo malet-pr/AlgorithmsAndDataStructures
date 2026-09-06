@@ -61,3 +61,48 @@ let expected_triple2 =
     (node 60
        (leaf 36)
        (leaf 45))
+
+let expected_filter_prune1 =
+  node 10
+    TM.Empty
+    (node 20
+       (leaf 12)
+       (leaf 15))
+
+let expected_filter_prune2 =
+  node 10
+    (node 5
+       TM.Empty
+       (leaf 9))
+    (node 20
+       TM.Empty
+       (leaf 15))
+
+let expected_filter_option1 =
+  node (Some 10)
+    (node None
+      (leaf (Some 7))
+      (leaf (Some 9)))
+    (node (Some 20)
+       (leaf (Some 12))
+       (leaf (Some 15)))
+
+let expected_filter_option2 =
+  node (Some 10)
+    (node (Some 5)
+       (leaf None)
+       (leaf (Some 9)))
+    (node (Some 20)
+       (leaf None)
+       (leaf (Some 15)))       
+
+let mirror_tree1 =
+  node 10
+    (node 20
+       (leaf 15)
+       (leaf 12))
+    (node 5
+       (leaf 9)
+       (leaf 7))
+
+

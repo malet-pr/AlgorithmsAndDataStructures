@@ -138,5 +138,21 @@ let count_by_fold pr tree =
   fold_tree (fun v left right -> (if pr v  then 1 else 0) + left + right) 0 tree
 
 let find_by_fold pr tree =
-  fold_tree (fun v left right -> (pr v || left || right)) false tree
+  fold_tree (fun v left right -> (pr v || left || right)) false (tree : 'a b_tree)
 
+let rec filter_prune g tree =
+  match tree with
+  | Empty -> Empty
+  | BNode(v, left, right) -> if g v then BNode(v, (filter_prune g left ), (filter_prune g right)) else Empty
+
+let rec filter_option g tree =
+  match tree with
+  | Empty -> Empty
+  | BNode (v, left, right) -> BNode ((if g v then Some v else None),filter_option g left,filter_option g right)
+
+let rec mirror tree =
+  match tree with
+  | Empty -> Empty
+  | BNode (v, left, right) -> BNode (v, mirror right, mirror left)
+
+  

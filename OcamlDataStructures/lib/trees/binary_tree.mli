@@ -25,3 +25,9 @@ val count_nodes_fold : 'a b_tree -> int
 val count_by_fold : ('a -> bool) -> 'a b_tree -> int
 val find_by_fold : ('a -> bool) -> 'a b_tree -> bool
 
+val filter_prune : ('a -> bool) -> 'a b_tree -> 'a b_tree
+val filter_option : ('a -> bool) -> 'a b_tree -> 'a option b_tree
+
+val mirror : 'a b_tree -> 'a b_tree
+
+
