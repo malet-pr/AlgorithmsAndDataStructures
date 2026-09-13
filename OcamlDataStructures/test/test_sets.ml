@@ -186,12 +186,18 @@ let count_by_cases =
 let search_bst_int_cases =
   [
     ("search exist in tree1", compare, 15, true, bst1);
-    ("search not exist in tree1", compare, 45, false, bst1)
+    ("search not exist in tree1", compare, 45, false, bst1);
   ]
 
 let search_bst_wo_cases =
   [
     ("search exist WO", compare_wo, {wo_number="100"; wo_class=Event}, true, wo_bst1);
-    ("search not exist WO", compare_wo, {wo_number="300"; wo_class=Event}, false, wo_bst1)
+    ("search not exist WO", compare_wo, {wo_number="300"; wo_class=Event}, false, wo_bst1);
   ]
 
+let find_path_cases =
+  [
+    ("value exists", 20, [10; 20], tree1);
+    ("value does not exist", 70, [], tree1);
+    ("larger tree", -12, [10;20;-12], tree3);
+  ] 

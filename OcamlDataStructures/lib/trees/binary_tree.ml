@@ -155,4 +155,18 @@ let rec mirror tree =
   | Empty -> Empty
   | BNode (v, left, right) -> BNode (v, mirror right, mirror left)
 
-  
+let rec find_path tree value =
+  match tree with
+  | Empty -> []
+  | BNode (v, left, right) ->
+      if v = value then [v]
+      else
+        let left_path = find_path left value in
+        if left_path <> [] then
+          v :: left_path
+        else
+          let right_path = find_path right value in
+          if right_path <> [] then
+            v :: right_path
+          else
+            []

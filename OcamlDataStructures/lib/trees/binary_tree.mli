@@ -29,5 +29,5 @@ val filter_prune : ('a -> bool) -> 'a b_tree -> 'a b_tree
 val filter_option : ('a -> bool) -> 'a b_tree -> 'a option b_tree
 
 val mirror : 'a b_tree -> 'a b_tree
-
+val find_path : 'a b_tree -> 'a -> 'a list
 
