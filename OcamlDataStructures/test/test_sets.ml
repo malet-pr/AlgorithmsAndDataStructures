@@ -178,10 +178,20 @@ let count_by_cases =
   [
     ("counts Event", (fun wo -> wo.wo_class = Event), 1, wo_tree);
     ("counts Network", (fun wo -> wo.wo_class = Network), 1, wo_tree);
-    ("counts Invalid", (fun wo ->
-       match wo.wo_class with
-       | Invalid _ -> true
-       | _ -> false),
-     0,
-     wo_tree);
+    ("counts Invalid", (fun wo -> wo.wo_class = Invalid), 0, wo_tree);
   ]  
+
+(************************************************************************************)  
+
+let search_bst_int_cases =
+  [
+    ("search exist in tree1", compare, 15, true, bst1);
+    ("search not exist in tree1", compare, 45, false, bst1)
+  ]
+
+let search_bst_wo_cases =
+  [
+    ("search exist WO", compare_wo, {wo_number="100"; wo_class=Event}, true, wo_bst1);
+    ("search not exist WO", compare_wo, {wo_number="300"; wo_class=Event}, false, wo_bst1)
+  ]
+

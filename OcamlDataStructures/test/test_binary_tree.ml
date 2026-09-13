@@ -6,6 +6,7 @@ open Test_sets
 module BT = DataStructures.Trees.Binary_tree
 module TM = DataStructures.Trees.Models
 module IBT = DataStructures.Trees.Int_binary_tree
+module BST = DataStructures.Trees.Bst
 
 
 let make_count_test t_case f (name, expected, tree) = 
@@ -24,7 +25,15 @@ let make_bool_test t_case f (name, param, expected, tree) =
       (f param tree)
   )    
 
-  let make_bool_no_condition_test t_case f (name, expected, tree) = 
+let make_bool_compare_test t_case f (name, comp, param, expected, tree) = 
+  Alcotest.test_case name `Quick (fun () ->
+    Alcotest.(check bool)
+      t_case
+      expected
+      (f comp param tree)
+  ) 
+
+let make_bool_no_condition_test t_case f (name, expected, tree) = 
   Alcotest.test_case name `Quick (fun () ->
     Alcotest.(check bool)
       t_case
@@ -202,6 +211,8 @@ let () =
       ("filter_prune", List.map(make_int_return "filter_prune" BT.filter_prune ) filter_prune_cases); 
       ("filter_option", List.map(make_option_int_return "filter_prune" BT.filter_option ) filter_option_cases); 
       ("mirror", List.map(make_int_return_no_func "mirror" BT.mirror) mirror_test_cases);
+      ("search int", List.map(make_bool_compare_test "search int" BST.search_bst) search_bst_int_cases);
+      ("search wo", List.map(make_bool_compare_test "search wo" BST.search_bst) search_bst_wo_cases);
     ] 
 
 

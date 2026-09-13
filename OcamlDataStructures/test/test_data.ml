@@ -8,9 +8,9 @@ let leaf v = TM.BNode (v, TM.Empty, TM.Empty)
 let node v left right = TM.BNode (v, left, right)
 
 let wo_tree =
-  node {wo_number="AB22R"; wo_class=Event}
+  node {wo_number="123"; wo_class=Event}
     TM.Empty
-    (leaf {wo_number="AB321"; wo_class=Network})
+    (leaf {wo_number="224"; wo_class=Network})
 
 let tree1 =
   node 10
@@ -105,4 +105,15 @@ let mirror_tree1 =
        (leaf 9)
        (leaf 7))
 
+let wo_bst1 = 
+  node {wo_number="123"; wo_class=Event}
+    (leaf {wo_number="100"; wo_class=Network})
+    (leaf {wo_number="224"; wo_class=Network})
 
+let bst1 =
+  node 10
+    (leaf 5)
+    (node 20
+      (leaf 15)
+      TM.Empty)
+   
