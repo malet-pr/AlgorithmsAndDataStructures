@@ -170,3 +170,16 @@ let rec find_path tree value =
             v :: right_path
           else
             []
+
+let rec bfs queue value =
+  match queue with
+  | [] -> []
+  | (subtree, path) :: t ->
+      match subtree with
+      | Empty -> bfs t value
+      | BNode (v, left, right) ->
+          let current_path = path @ [v] in
+          if v = value then current_path
+          else bfs (t @ [(left, current_path); (right, current_path)]) value
+
+
