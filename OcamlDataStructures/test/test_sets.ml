@@ -201,3 +201,10 @@ let find_path_cases =
     ("value does not exist", 70, [], tree1);
     ("larger tree", -12, [10;20;-12], tree3);
   ] 
+
+let find_path_cases_2 =
+  [
+    ("value exists", 20, [10; 20], [(tree1,[])]);
+    ("value does not exist", 70, [], [(tree1,[])]);
+    ("larger tree", -12, [10;20;-12], [(tree3,[])]);
+  ]   

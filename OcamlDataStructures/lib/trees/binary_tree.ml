@@ -171,6 +171,7 @@ let rec find_path tree value =
           else
             []
 
+(* start with bfs [(tree, [])] value  *)
 let rec bfs queue value =
   match queue with
   | [] -> []
@@ -181,5 +182,4 @@ let rec bfs queue value =
           let current_path = path @ [v] in
           if v = value then current_path
           else bfs (t @ [(left, current_path); (right, current_path)]) value
-
 

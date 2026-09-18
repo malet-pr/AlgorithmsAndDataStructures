@@ -220,10 +220,9 @@ let () =
       ("filter_option", List.map(make_option_int_return "filter_prune" BT.filter_option ) filter_option_cases); 
       ("mirror", List.map(make_int_return_no_func "mirror" BT.mirror) mirror_test_cases);
       ("find path", List.map (make_int_list_test_with_param_no_acc "find path" BT.find_path) find_path_cases);
+      ("find shortest path", List.map (make_int_list_test_with_param_no_acc "find shortest path" BT.bfs) find_path_cases_2);
       ("search int", List.map(make_bool_compare_test "search int" BST.search_bst) search_bst_int_cases);
       ("search wo", List.map(make_bool_compare_test "search wo" BST.search_bst) search_bst_wo_cases);
     ] 
-
-
 
 
