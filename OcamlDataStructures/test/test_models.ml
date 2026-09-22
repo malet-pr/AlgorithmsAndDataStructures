@@ -8,6 +8,19 @@ type class_variant =
 
 type wo = {wo_number: string; wo_class: class_variant}
 
+type length1_vs_length2 =
+  | Equal
+  | Larger
+  | Smaller
+
+
+(************************ STRINGS **************************)
+
+let string_of_length1_vs_length2 = function
+  | Equal -> "Equal"
+  | Larger -> "Larger"
+  | Smaller -> "Smaller" 
+
 
 (*********************** COMPARATORS ********************************)  
 

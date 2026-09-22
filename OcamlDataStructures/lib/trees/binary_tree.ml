@@ -183,3 +183,9 @@ let rec bfs queue value =
           if v = value then current_path
           else bfs (t @ [(left, current_path); (right, current_path)]) value
 
+let bfs2 tree value =
+  let queue = [(tree,[])] in
+  bfs queue value
+
+
+

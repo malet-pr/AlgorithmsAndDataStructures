@@ -189,6 +189,20 @@ let make_fold_list_string t_case f (name, acc, init, expected, tree) =
     (f acc init tree)
   )  
 
+let make_bool_compare_searches_test t_case f g (name, tree, expected, param) = 
+  Alcotest.test_case name `Quick (fun () -> 
+    let fl = List.length (f tree param) in
+    let gl = List.length (g tree param) in
+    let actual = if fl = gl then Equal
+                 else if fl > gl then Larger
+                 else Smaller
+    in
+    Alcotest.(check string)
+      t_case
+      (string_of_length1_vs_length2 expected)
+      (string_of_length1_vs_length2 actual)
+  ) 
+
 
 let () =
   Alcotest.run "Binary tree tests"
@@ -221,6 +235,8 @@ let () =
       ("mirror", List.map(make_int_return_no_func "mirror" BT.mirror) mirror_test_cases);
       ("find path", List.map (make_int_list_test_with_param_no_acc "find path" BT.find_path) find_path_cases);
       ("find shortest path", List.map (make_int_list_test_with_param_no_acc "find shortest path" BT.bfs) find_path_cases_2);
+      ("find shortest path 2", List.map (make_int_list_test_with_param_no_acc "find path" BT.bfs2) find_path_cases);
+      ("compare searches", List.map(make_bool_compare_searches_test "compare searches" BT.find_path BT.bfs2) path_finder_first_searchs_cases);
       ("search int", List.map(make_bool_compare_test "search int" BST.search_bst) search_bst_int_cases);
       ("search wo", List.map(make_bool_compare_test "search wo" BST.search_bst) search_bst_wo_cases);
     ] 

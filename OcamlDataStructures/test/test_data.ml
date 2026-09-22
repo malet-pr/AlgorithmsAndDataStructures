@@ -117,3 +117,26 @@ let bst1 =
       (leaf 15)
       TM.Empty)
    
+let search_tree1 =
+    node 10
+      (node 20
+        (node 15
+          (leaf 9)
+          TM.Empty
+        )
+        (node 12
+          (leaf 5)
+          (leaf 22)
+        )
+      )
+      (node 5
+        (node 9
+          TM.Empty
+          (leaf 20)
+        )
+        (node 7
+          (leaf 22)
+          (leaf 40)
+        )
+      )
+

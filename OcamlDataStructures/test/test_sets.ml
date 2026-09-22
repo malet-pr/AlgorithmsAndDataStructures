@@ -208,3 +208,11 @@ let find_path_cases_2 =
     ("value does not exist", 70, [], [(tree1,[])]);
     ("larger tree", -12, [10;20;-12], [(tree3,[])]);
   ]   
+
+let path_finder_first_searchs_cases =
+  [
+    ("deeper left", search_tree1, Larger, 9);
+    ("same depth", search_tree1, Equal, 22);
+    ("deeper right", search_tree1, Equal, 20);
+  ]  
+
